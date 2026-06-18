@@ -9,3 +9,52 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* AlertifyJS Custom Theme Buttons */
+.btn-alertify-ok {
+    background-color: #010C67 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 18px !important;
+    padding: 8px 24px !important;
+    font-family: 'Lora', serif, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease-in-out !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+    text-decoration: none !important;
+}
+
+.btn-alertify-ok:hover {
+    background-color: #000B58 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15) !important;
+}
+
+.btn-alertify-cancel {
+    background-color: #67000F !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 18px !important;
+    padding: 8px 24px !important;
+    font-family: 'Lora', serif, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease-in-out !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+    text-decoration: none !important;
+}
+
+.btn-alertify-cancel:hover {
+    background-color: #830617 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15) !important;
+}

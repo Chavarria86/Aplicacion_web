@@ -366,6 +366,174 @@
             opacity: 0.8;
             color: var(--color-secundario-1) !important;
         }
+
+        /* ALERTA TÉRMINOS Y CONDICIONES */
+        .alerta-terminos {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            border-radius: var(--sds-size-radius-200, 8px);
+            border: var(--sds-size-stroke-border, 1px) solid var(--color-advertencia, rgba(255, 123, 0, 0.63));
+            background: var(--color-advertencia, rgba(255, 123, 0, 0.63));
+            display: flex;
+            width: 455px;
+            height: 163px;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            gap: var(--sds-size-space-100, 8px);
+            z-index: 2000;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+            color: white;
+            box-sizing: border-box;
+            font-family: var(--font-texto);
+        }
+
+        .alerta-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            line-height: 1;
+        }
+
+        .alerta-close-btn:hover {
+            opacity: 1;
+        }
+
+        .btn-alerta-aceptar {
+            background-color: transparent;
+            border: 1px solid white;
+            border-radius: 6px;
+            color: white;
+            padding: 6px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-texto);
+        }
+
+        .btn-alerta-aceptar:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* REGISTRATION NOTIFICATION MODAL */
+        .notification-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 11, 88, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-card {
+            background: #010C67;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            width: 450px;
+            max-width: 90%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .notification-header-row {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-padding-spacing-16, 16px);
+            flex: 1 0 0;
+            align-self: stretch;
+        }
+
+        .notification-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+        }
+
+        .check-icon {
+            flex-shrink: 0;
+            color: #ffffff;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-title {
+            font-family: var(--font-titulo);
+            font-size: 20px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .striped-divider {
+            height: 6px;
+            align-self: stretch;
+            background: repeating-linear-gradient(
+                -45deg,
+                #e95997,
+                #e95997 6px,
+                #ffffff 6px,
+                #ffffff 12px
+            );
+            border-radius: 3px;
+        }
+
+        .notification-body-text {
+            display: flex;
+            padding-left: var(--spacing-padding-spacing-32, 32px);
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-padding-spacing-0, 0);
+            align-self: stretch;
+            font-family: var(--font-texto);
+            font-size: 14px;
+            font-weight: 500;
+            color: #ffffff;
+            opacity: 0.95;
+        }
+
+        .notification-spinner-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .custom-spinner-svg {
+            width: 78px;
+            height: 78px;
+            animation: spin-notification 1.5s linear infinite;
+        }
+
+        @keyframes spin-notification {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -432,41 +600,41 @@
             <form @submit.prevent="registrarUsuario">
                 
                 <!-- Ocultamos nombres y apellidos lógicamente en backend, pero los pedimos en frontend por el diseño -->
-                <label class="label-genesis">Nombres:</label>
+                <label class="label-genesis">Nombres<span style="color: red;">*</span></label>
                 <div class="input-group-custom">
                     <input type="text" class="input-genesis" v-model="registroForm.nombres" placeholder="Tus nombres" required :disabled="cargando">
                 </div>
 
-                <label class="label-genesis">Apellidos:</label>
+                <label class="label-genesis">Apellidos<span style="color: red;">*</span></label>
                 <div class="input-group-custom">
                     <input type="text" class="input-genesis" v-model="registroForm.apellidos" placeholder="Tus apellidos" required :disabled="cargando">
                 </div>
 
-                <label class="label-genesis">Correo institucional:</label>
+                <label class="label-genesis">Correo institucional<span style="color: red;">*</span></label>
                 <div class="input-group-custom">
                     <input type="email" class="input-genesis" v-model="registroForm.correo" placeholder="usss@000ugb.edu.sv" required :disabled="cargando">
                 </div>
                 
-                <label class="label-genesis">Contraseña:</label>
+                <label class="label-genesis">Contraseña<span style="color: red;">*</span></label>
                 <div class="input-group-custom">
                     <input :type="mostrarPassword ? 'text' : 'password'" class="input-genesis" v-model="registroForm.contrasena" placeholder="********" required :disabled="cargando">
                     <i class="bi icon-eye" :class="mostrarPassword ? 'bi-eye-slash' : 'bi-eye'" @click="mostrarPassword = !mostrarPassword"></i>
                 </div>
 
-                <label class="label-genesis">Confirmar contraseña:</label>
+                <label class="label-genesis">Confirmar contraseña<span style="color: red;">*</span></label>
                 <div class="input-group-custom">
                     <input :type="mostrarPassword2 ? 'text' : 'password'" class="input-genesis" v-model="registroForm.confirmar" placeholder="********" required :disabled="cargando">
                     <i class="bi icon-eye" :class="mostrarPassword2 ? 'bi-eye-slash' : 'bi-eye'" @click="mostrarPassword2 = !mostrarPassword2"></i>
                 </div>
 
                 <div class="terms-container">
-                    <input type="checkbox" id="terms" v-model="registroForm.terminos" required>
+                    <input type="checkbox" id="terms" v-model="registroForm.terminos">
                     <label for="terms">He leído y acepto los <a href="#" class="text-link" @click.prevent="mostrarTerminos = true">Términos y Condiciones de Uso</a></label>
                 </div>
 
-                <button type="submit" class="btn-genesis" :disabled="cargando || !registroForm.terminos" style="background-color: #000B58; font-size: 16px; width: 171px; height: 41px; padding: 0; border-radius: 18px; margin-top: 20px;">
+                <button type="submit" class="btn-genesis" :disabled="cargando" style="background-color: #000B58; font-size: 16px; width: 171px; height: 41px; padding: 0; border-radius: 18px; margin-top: 20px;">
                     <span v-if="cargando" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Guardar
+                    Siguiente
                 </button>
 
                 <div class="mt-4" style="font-size: 14px; color: #555;">
@@ -544,23 +712,103 @@
 
             <!-- PASO 3: Nueva Contraseña -->
             <div v-if="pasoRecuperacion === 3">
-                <p class="subtitulo-genesis">Crea una nueva contraseña segura</p>
+                <!-- Botón de cerrar (X) en la esquina superior derecha -->
+                <button class="close-btn" @click="cambiarVista('login')">&times;</button>
+
+                <h2 class="titulo-genesis">Escribe una nueva contraseña:</h2>
+                <p class="subtitulo-genesis" style="font-size: 15px; margin-bottom: 25px; line-height: 1.4;">
+                    Ingresa una contraseña de almenos 8 caracteres con números y letras, con almenos una letra mayúscula.
+                </p>
+                
                 <form @submit.prevent="recuperarCuenta()">
-                    <label class="label-genesis">Nueva Contraseña:</label>
+                    <label class="label-genesis">Nueva contraseña</label>
                     <div class="input-group-custom">
-                        <input type="password" class="input-genesis" v-model="recuperarForm.nuevaContrasena" placeholder="********" required :disabled="cargando">
+                        <input :type="mostrarPassword ? 'text' : 'password'" class="input-genesis" v-model="recuperarForm.nuevaContrasena" placeholder="********" required :disabled="cargando">
+                        <i class="bi icon-eye" :class="mostrarPassword ? 'bi-eye-slash' : 'bi-eye'" @click="mostrarPassword = !mostrarPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #777; font-size: 1.2rem;"></i>
                     </div>
                     
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="button" class="btn-cancelar" @click="pasoRecuperacion = 2" :disabled="cargando">Atrás</button>
-                        <button type="submit" class="btn-verificar" :disabled="cargando">
-                            <span v-if="cargando" class="spinner-border spinner-border-sm me-2"></span>
-                            Actualizar
-                        </button>
+                    <label class="label-genesis">Repite la contraseña</label>
+                    <div class="input-group-custom">
+                        <input :type="mostrarPassword2 ? 'text' : 'password'" class="input-genesis" v-model="recuperarForm.confirmarContrasena" placeholder="********" required :disabled="cargando">
+                        <i class="bi icon-eye" :class="mostrarPassword2 ? 'bi-eye-slash' : 'bi-eye'" @click="mostrarPassword2 = !mostrarPassword2" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #777; font-size: 1.2rem;"></i>
                     </div>
+
+                    <button type="submit" class="btn-genesis" :disabled="cargando" style="background-color: #000B58; font-size: 16px; width: 171px; height: 41px; padding: 0; border-radius: 18px; margin-top: 25px;">
+                        <span v-if="cargando" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Cambiar
+                    </button>
                 </form>
             </div>
         </div>
+        <!-- Alerta flotante para Términos y Condiciones -->
+        <transition name="fade">
+            <div class="alerta-terminos" v-if="mostrarAlertaTerminos">
+                <button class="alerta-close-btn" @click="mostrarAlertaTerminos = false">&times;</button>
+                <div class="d-flex flex-column align-items-start w-100 justify-content-between h-100">
+                    <div class="d-flex align-items-center gap-3 w-100">
+                        <i class="bi bi-info-circle-fill" style="font-size: 28px; color: #fff;"></i>
+                        <span style="font-size: 16px; font-weight: 500; text-align: left; line-height: 1.4; color: #fff;">
+                            ¡Debe aceptar los términos y condiciones para continuar!
+                        </span>
+                    </div>
+                    <button type="button" class="btn-alerta-aceptar" @click="mostrarAlertaTerminos = false">Aceptar</button>
+                </div>
+            </div>
+        </transition>
+
+        <!-- NOTIFICACIÓN DE REGISTRO EXITOSO (PASO 1 AZUL, PASO 2 VERDE) -->
+        <transition name="fade">
+            <div class="notification-overlay" v-if="mostrarRegistroNotificacion">
+                <!-- Estado 1: Cargando/Validando (Azul #010C67) -->
+                <div class="notification-card" v-if="registroPasoNotificacion === 'cargando'">
+                    <div class="notification-header-row">
+                        <div class="notification-header-left">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                            <span class="notification-title">Datos enviados correctamente</span>
+                        </div>
+                    </div>
+                    
+                    <div class="striped-divider"></div>
+                    
+                    <div class="notification-body-text">
+                        Tus datos están siendo validados, espera un momento
+                    </div>
+                    
+                    <div class="notification-spinner-container">
+                        <svg class="custom-spinner-svg" xmlns="http://www.w3.org/2000/svg" width="78" height="78" viewBox="0 0 78 78" fill="none">
+                            <path d="M38.875 1C59.7904 1 76.75 17.9596 76.75 38.875" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path opacity="0.3" d="M38.875 1C59.7904 1 76.75 17.9596 76.75 38.875C76.75 59.7904 59.7904 76.75 38.875 76.75C17.9596 76.75 1 59.7904 1 38.875C1 17.9596 17.9596 1 38.875 1Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Estado 2: Validación Exitosa (Verde #10A957) -->
+                <div class="notification-card success-card" v-else-if="registroPasoNotificacion === 'exito'">
+                    <button class="notification-close-x" @click="cerrarNotificacionRegistro">&times;</button>
+                    
+                    <div class="notification-header-row">
+                        <div class="notification-header-left">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                            <span class="notification-title">Datos enviados correctamente</span>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-body-text success-text">
+                        Los datos se han validado correctamente.
+                    </div>
+                    
+                    <div class="notification-button-container">
+                        <button class="btn-notification-aceptar" @click="cerrarNotificacionRegistro">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
 
     </div>
 
@@ -582,6 +830,10 @@
                     mostrarPassword: false,
                     mostrarPassword2: false,
                     mostrarTerminos: false,
+                    mostrarAlertaTerminos: false,
+                    mostrarRegistroNotificacion: false,
+                    registroPasoNotificacion: 'cargando',
+                    registroSuccessMensaje: '',
                     cargando: false,
                     
                     // Estados para recuperación
@@ -603,7 +855,8 @@
                     recuperarForm: {
                         correo: '',
                         codigo: '',
-                        nuevaContrasena: ''
+                        nuevaContrasena: '',
+                        confirmarContrasena: ''
                     }
                 }
             },
@@ -621,9 +874,11 @@
                     this.codigoArray = ['', '', '', '', '', ''];
                     this.recuperarForm.codigo = '';
                     this.recuperarForm.nuevaContrasena = '';
+                    this.recuperarForm.confirmarContrasena = '';
                     this.registroForm.contrasena = '';
                     this.registroForm.confirmar = '';
                     this.registroForm.terminos = false;
+                    this.mostrarAlertaTerminos = false;
                 },
                 enmascararCorreo(correo) {
                     if(!correo) return '';
@@ -705,7 +960,7 @@
                         return;
                     }
                     if (!this.registroForm.terminos) {
-                        alertify.warning('Debes aceptar los términos y condiciones.');
+                        this.mostrarAlertaTerminos = true;
                         return;
                     }
 
@@ -713,8 +968,18 @@
                     
                     try {
                         const response = await api.post('/auth/registro', this.registroForm);
-                        this.cambiarVista('login');
-                        alertify.success(response.data.mensaje || 'Cuenta creada con éxito.');
+                        // Lanzar la notificación de validación (azul con spinner)
+                        this.mostrarRegistroNotificacion = true;
+                        this.registroPasoNotificacion = 'cargando';
+                        
+                        // Esperar 3 segundos
+                        await new Promise(resolve => setTimeout(resolve, 3000));
+                        
+                        // Pasar al estado de éxito (verde con botón Aceptar)
+                        this.registroPasoNotificacion = 'exito';
+                        
+                        // Guardar la respuesta para el éxito
+                        this.registroSuccessMensaje = response.data.mensaje || 'Cuenta creada con éxito.';
                     } catch (error) {
                         let msg = 'Error al registrar la cuenta.';
                         if (error.response && error.response.data && error.response.data.mensaje) {
@@ -730,6 +995,21 @@
                     } finally {
                         this.cargando = false;
                     }
+                },
+                cerrarNotificacionRegistro() {
+                    this.mostrarRegistroNotificacion = false;
+                    this.cambiarVista('login');
+                    this.loginForm.correo = this.registroForm.correo;
+                    // Resetear formulario de registro
+                    this.registroForm = {
+                        nombres: '',
+                        apellidos: '',
+                        correo: '',
+                        contrasena: '',
+                        confirmar: '',
+                        terminos: false
+                    };
+                    alertify.success(this.registroSuccessMensaje || 'Cuenta creada con éxito.');
                 },
                 async enviarCodigo(esReenvio = false) {
                     this.cargando = true;
@@ -771,6 +1051,18 @@
                     }
                 },
                 async recuperarCuenta() {
+                    if (this.recuperarForm.nuevaContrasena !== this.recuperarForm.confirmarContrasena) {
+                        alertify.warning('Las contraseñas no coinciden.');
+                        return;
+                    }
+                    
+                    const pass = this.recuperarForm.nuevaContrasena;
+                    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+                    if (!regex.test(pass)) {
+                        alertify.warning('La contraseña debe tener al menos 8 caracteres, incluir números, letras y al menos una mayúscula.');
+                        return;
+                    }
+
                     this.cargando = true;
                     
                     try {
@@ -794,6 +1086,13 @@
                     } finally {
                         this.cargando = false;
                     }
+                }
+            },
+            mounted() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const vista = urlParams.get('vista');
+                if (vista && ['login', 'registro', 'recuperar'].includes(vista)) {
+                    this.vistaActual = vista;
                 }
             }
         });
